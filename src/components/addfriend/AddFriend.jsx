@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { apiURL, apiURL2 } from "../../constants/constants";
 
+
 const AddFriend = ({refreshList}) => {
 
   const[friendEmail, setFriendEmail] = useState(null);
@@ -9,6 +10,7 @@ const AddFriend = ({refreshList}) => {
   const [error, setError] = useState(null);
 
   const handleSubmit = async(e)=>{
+
     e.preventDefault();
     setIsPending(true)
     const token = JSON.parse(localStorage.getItem('token'))

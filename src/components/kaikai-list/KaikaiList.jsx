@@ -5,6 +5,7 @@ import { apiURL, apiURL2 } from "../../constants/constants";
 import MessageHistory from "../message-history/MessageHistory";
 import Kaikais from "../kaikais/Kaikais";
 import './KakaiList.css'
+import io from "socket.io-client";
 
 
 const KaikaiList = () => {
@@ -18,6 +19,7 @@ const KaikaiList = () => {
 
   useEffect(()=>{
 
+    const socket = io(apiURL2)
     const token = JSON.parse(localStorage.getItem('token'))
 
     const getFriends = async()=>{
@@ -46,6 +48,12 @@ const KaikaiList = () => {
        }
     }
       getFriends().catch(err=>console.error("caught in getFriends", err));
+
+      socket.on('refreshFriends', ()=>{
+        getFriends()
+      })
+
+      return ()=>socket.close()
   },[refresh])
 
   const selectFriend = id=>{
