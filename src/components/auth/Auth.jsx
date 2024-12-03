@@ -12,6 +12,7 @@ const AuthProvider = ({children}) => {
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null)
+  const [uid, setUid] = useState(JSON.parse(localStorage.getItem('uid')))
 
   const login = async (email, password)=>{
 
@@ -23,8 +24,10 @@ const AuthProvider = ({children}) => {
     try{
       const response = await axios.post(`${apiURL2}/api/v1/auth/sign_in`, obj)
       setIsLoggedIn(true);
-      localStorage.setItem('token', JSON.stringify(response.data))
+      localStorage.setItem('token', JSON.stringify(response.data.token))
       localStorage.setItem('login', true)
+      localStorage.setItem('uid', JSON.stringify(response.data.uid))
+      setUid(response.data.uid)
       setIsPending(false)
       setError(null)
       navigate('/')
@@ -39,6 +42,9 @@ const AuthProvider = ({children}) => {
       else{
         setError('an unexpected error occurred')
       }
+      setTimeout(()=>{
+        setError(null)
+      },3000)
       setIsPending(false)
       navigate('/')
     }
@@ -55,7 +61,7 @@ const AuthProvider = ({children}) => {
 
 
 
-  return ( <loginContext.Provider value={{isLoggedIn, login, logout, isPending, error}}>
+  return ( <loginContext.Provider value={{isLoggedIn, login, logout, isPending, error, uid}}>
     {children}
   </loginContext.Provider> );
 }

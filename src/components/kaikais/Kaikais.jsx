@@ -2,20 +2,23 @@ import { useEffect, useRef, useState } from "react";
 import { apiURL, apiURL2 } from "../../constants/constants";
 import axios from "axios";
 
-const Kaikais = ({selectedFriend, setMessageRefresh}) => {
+const Kaikais = ({selectedFriend, setMessageRefresh, selectedChannel}) => {
   const [message, setMessage] = useState(null);
   const inputRef = useRef(null)
   
   const handleSubmit = async(e) =>{
-    if(!selectedFriend){
+    e.preventDefault();
+    if(!selectedFriend || !selectedChannel){
       return console.log('no one is selected')
     }
-    e.preventDefault();
+    
 
+  
     
     const token = JSON.parse(localStorage.getItem('token'))
     const messagebody = {
-      receiver: selectedFriend,
+      receiver: selectedFriend ? selectedFriend : selectedChannel,
+      receiver_class: selectedFriend? null : "channel",
       body:message
     }
     try{

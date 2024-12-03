@@ -6,6 +6,9 @@ import MessageHistory from "../message-history/MessageHistory";
 import Kaikais from "../kaikais/Kaikais";
 import './KakaiList.css'
 import io from "socket.io-client";
+import AddChannel from "../channels/AddChannel";
+import GetChannel from "../channels/GetChannel";
+
 
 
 const KaikaiList = () => {
@@ -16,6 +19,7 @@ const KaikaiList = () => {
   const [refresh, refreshList] = useState(false)
   const [selectedFriend, setSelectedFriend] = useState(null)
   const [messageRefresh, setMessageRefresh] = useState(false);
+  const [selectedChannel, setSelectedChannel] = useState(null)
 
   useEffect(()=>{
 
@@ -58,6 +62,13 @@ const KaikaiList = () => {
 
   const selectFriend = id=>{
     setSelectedFriend(id)
+    setSelectedChannel(null)
+  }
+
+  const selectChannel = id =>{
+    setSelectedChannel(id)
+    setSelectedFriend(null)
+    console.log(id)
   }
   return ( <div>
     <AddFriend refreshList={refreshList}/>
@@ -68,8 +79,11 @@ const KaikaiList = () => {
       className = {selectedFriend === friend.friendId._id ? "friendEmail active" : "friendEmail"}>
       <div>{friend.friendId.email}</div>
       </div>))}
-     <MessageHistory selectedFriend={selectedFriend} messageRefresh={messageRefresh}/>
-     <Kaikais setMessageRefresh={setMessageRefresh} selectedFriend={selectedFriend}/>
+     <MessageHistory selectedFriend={selectedFriend} messageRefresh={messageRefresh} selectedChannel={selectedChannel}/>
+     <Kaikais setMessageRefresh={setMessageRefresh} selectedFriend={selectedFriend}  selectedChannel={selectedChannel}/>
+     <AddChannel kaikaiList = {kaikaiList} />
+     <GetChannel selectChannel={selectChannel} kaikaiList={kaikaiList} selectedChannel={selectedChannel}/>
+     
   </div> );
 }
  

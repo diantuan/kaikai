@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "../auth/Auth";
 import { useState } from "react";
+
 
 const Login = () => {
 
@@ -38,6 +40,8 @@ const Login = () => {
 
 {isPending && <div>Logging in...</div>}
 {error && <div>{error}</div>}
+<Link to = "/sign-up">Sign-up</Link>
+
   </div> );
 }
  
