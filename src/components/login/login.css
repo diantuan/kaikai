@@ -1,0 +1,137 @@
+h1{
+  color: var(--soft-pink);
+  text-align:center;
+  text-shadow:1px 1px 3px var(--black);
+  font-size: 3em;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-70%, -300%);
+  font-family: moderna;
+  z-index: 1;
+}
+
+.login-form{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -100%);
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  width:240px;
+}
+
+.login-form input{
+  border-radius: 7px;
+  background-color: var(--dark-pink);
+  height:35px;
+  box-shadow: inset -1px 1px mistyrose;
+  border:none;
+  color:mistyrose;
+  text-align: center;
+  font-size: 1em;
+  filter: brightness(.8);
+}
+
+.login-form input::placeholder{
+  color:var(--blued);
+  text-align:center;
+  font-size: .9em;
+}
+
+.login-form input:focus{
+  outline: none;
+  filter: brightness(1);
+}
+
+
+.login-form button{
+  background-color: var(--blued);
+  height:30px;
+  border-radius: 7px ;
+  box-shadow: inset -1px 1px mistyrose;
+  font-weight: bold;
+  font: 1em;
+}
+
+.login-form button:active{
+  box-shadow: inset -2px 2px var(--dark-pink);
+  background-color: var(--dark-pink2);
+}
+
+.login-pendingError{
+  position: fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%);
+  font-family: banks;
+  color:mistyrose;
+}
+
+.login-sign-up{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, 200%);
+  text-align: center;
+  width:250px;
+  border-top:1px solid var(--dark-pink);
+  color:mistyrose;
+  font-weight: normal;
+}
+
+.login-sign-up a{
+  color: var(--soft-pink);
+  text-decoration: none;
+}
+
+.login-sign-up a:hover{
+  color:mistyrose;
+}
+
+.login-logo{
+  position:fixed;
+  left:55%;
+  top:15%;
+  width:100px;
+  z-index: 0;
+  animation-name: logomove;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes logomove {
+
+  0%{
+    transform: rotate(0);
+  }
+  25%{
+    transform: rotate(0);
+  }
+  37%{
+    transform: rotate(-20deg);
+  }
+  50%{
+    transform: rotate(0);
+  }
+  80%{
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  86%{
+    -webkit-transform: scaleX(1);
+    transform: scaleX(-1);
+  }
+  95%{
+    -webkit-transform: scaleX(1);
+    transform: scaleX(-1);
+  }
+  100%{
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  
+}

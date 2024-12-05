@@ -8,7 +8,7 @@ const Kaikais = ({selectedFriend, setMessageRefresh, selectedChannel}) => {
   
   const handleSubmit = async(e) =>{
     e.preventDefault();
-    if(!selectedFriend || !selectedChannel){
+    if(!selectedFriend && !selectedChannel){
       return console.log('no one is selected')
     }
     

@@ -1,0 +1,65 @@
+.sign-up-form{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -100%);
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  width:240px;
+}
+
+.sign-up-form input{
+  border-radius: 7px;
+  background-color: var(--dark-pink);
+  height:35px;
+  box-shadow: inset -1px 1px mistyrose;
+  border:none;
+  color:mistyrose;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  filter: brightness(.8);
+}
+
+.sign-up-form input::placeholder{
+  color:var(--blued);
+  text-align:center;
+  font-size: .9em;
+}
+
+.sign-up-form input:focus{
+  outline: none;
+  filter: brightness(1);
+}
+
+
+.sign-up-form button{
+  background-color: var(--blued);
+  height:30px;
+  border-radius: 7px ;
+  box-shadow: inset -1px 1px mistyrose;
+  font-weight: bold;
+  font: 1em;
+}
+
+.sign-up-form button:active{
+  box-shadow: inset -2px 2px var(--dark-pink);
+  background-color: var(--dark-pink2);
+}
+
+.sign-up-pendingError{
+  position: fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%);
+  color:mistyrose;
+}
+
+.create-account{
+  position: fixed;
+  left:50%;
+  top:10%;
+  transform: translate(-50%);
+  color:var(--blued)
+}

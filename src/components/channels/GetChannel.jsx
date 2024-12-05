@@ -17,7 +17,7 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
 
     const token = JSON.parse(localStorage.getItem('token'))
     
-    const socket = io(`${apiURL2}`)
+    const socks = io(`${apiURL2}`)
 
     const retrieveChannels = async()=>{
       setPending(true)
@@ -43,12 +43,12 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
 
     retrieveChannels();
 
-    socket.on('refreshChannel', ()=>{
+    socks.on('refreshChannel', ()=>{
       retrieveChannels()
     })
 
       
-    return ()=>socket.close()
+    return ()=>socks.close()
   }
   ,[kaikaiList])
 
@@ -80,14 +80,14 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
         return setError(response.data.error)
       }
 
-      setRemainingMembers(remainingMembers.filter(member=>member.friendId._id !== friendToAdd.friendId._id))
+      setRemainingMembers(remainingMembers.filter(member=>member.friendId._id !== friendToAdd))
 
       console.log(response.data)
 
     }
     catch(error){
       setError(error.response.data.error)
-      console.log(error.response)
+      console.log(error)
     }
   }
 
@@ -100,15 +100,15 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
       <div key = {channel._id}>
         <div
         onClick = {()=>selectChannel(channel._id)}>{channel.channelName}</div>
-        <div>{channel.members.map(member=>(
-          <span key={member.memberId._id}>{member.memberId.email}</span>
+        <div>{channel.members.map((member,ik)=>(
+          <span key={ik + "b"}>{member.memberId.email}</span>
         ))}</div>
         
         
           <select onChange={e=>setFriendToAdd(e.target.value)}>
             <option value ="null">select friend</option>
-            {remainingMembers && remainingMembers.map(friend=>(
-              <option key={friend.friendId._id}
+            {remainingMembers && remainingMembers.map((friend, i)=>(
+              <option key={i}
               value={friend.friendId._id}>
                 {friend.friendId.email}
               </option>

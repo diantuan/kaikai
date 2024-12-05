@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/Auth";
 import KaikaiList from "../kaikai-list/KaikaiList";
-
+import './dashboard.css'
 
 const Dashboard = () => {
 

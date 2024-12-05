@@ -77,6 +77,7 @@ const KaikaiList = () => {
     {kaikaiList && kaikaiList.map(friend=>(<div key={friend.friendId._id}
       onClick={()=>{selectFriend(friend.friendId._id)}}
       className = {selectedFriend === friend.friendId._id ? "friendEmail active" : "friendEmail"}>
+      <div>{friend.friendId.nickname? friend.friendId.nickname : "friend"}</div>  
       <div>{friend.friendId.email}</div>
       </div>))}
      <MessageHistory selectedFriend={selectedFriend} messageRefresh={messageRefresh} selectedChannel={selectedChannel}/>

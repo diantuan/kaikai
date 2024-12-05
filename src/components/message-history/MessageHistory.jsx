@@ -62,7 +62,7 @@ const MessageHistory = ({selectedFriend, messageRefresh, selectedChannel}) => {
     {error && <div>{error}</div>}
     {messages && messages.map(message=>(
       <div key={message._id}> 
-        <span>{message.sender.email}</span>
+        <span>{message.sender.email || message.sender.nickname}</span>
         <div className={message.sender._id.toString() === uid  ? "right-align" : "left-align"}
         >{message.body}</div>
 
