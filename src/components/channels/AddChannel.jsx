@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import {apiURL2} from '../../constants/constants'
+import './channel.css'
 
 
 const AddChannel = ({kaikaiList}) => {
@@ -8,6 +9,7 @@ const AddChannel = ({kaikaiList}) => {
   const [channelName, setChannelName] = useState(null);
   const [members, setMembers] = useState([])
   const [memberId, setMemberAdding] = useState(null)
+  const [memberToAdd, setMemberToAdd] = useState([])
   const [error, setError] = useState(null)
   const [pending, setPending] = useState(false)
   
@@ -30,12 +32,14 @@ const AddChannel = ({kaikaiList}) => {
       const response = await axios.post(`${apiURL2}/api/v1/create-channel`, obj, {headers: {"Authorization": `Bearer ${token}`}})
       setPending(false)
       setError(null)
+      setMemberToAdd([])
       console.log(response.data)
       
     
     }
     catch(error){
       setPending(false)
+      setMemberToAdd([])
       setError(error.response.data.error)
       console.log(error)
     }
@@ -43,9 +47,18 @@ const AddChannel = ({kaikaiList}) => {
 
   const handleMemberArray = e =>{
     e.preventDefault()
-    if(memberId == null){
+    if(memberId === "null"){
       return setError("need to select from current friends")
     }
+    
+    const foundMember = kaikaiList.find(friend=>friend.friendId._id === memberId)
+
+    if(memberToAdd.includes(foundMember.friendId.email)){
+      return setError("cannot select duplicate")
+    }
+
+    setMemberToAdd(prev=>[...prev, foundMember.friendId.email])
+    
     const newObj = {
       memberId
     }
@@ -53,7 +66,7 @@ const AddChannel = ({kaikaiList}) => {
     setError(null)
   }
 
-  return ( <div>
+  return ( <div className="add-channel-form">
     <form onSubmit = {handleSubmit}>
       <input
       onChange = {e=>setChannelName(e.target.value)}
@@ -76,7 +89,7 @@ const AddChannel = ({kaikaiList}) => {
         Add Member
       </button>
     </form>
-    {members && members.join(',')}
+    {memberToAdd && memberToAdd.map(mem=>(<span key={mem}>{mem} - </span>))}
     {pending && <div>creating channel...</div>}
     {error && <div>{error}</div>}
     

@@ -28,10 +28,8 @@ const Login = () => {
   return ( <div>
 
     <h1>kaikai</h1>
-
-    <div className="login-logo">
-    <Logo></Logo>
-    </div>
+    <div className="login-logo"><Logo /></div>
+    
 
      <form onSubmit={handleSubmit} className="login-form">
 

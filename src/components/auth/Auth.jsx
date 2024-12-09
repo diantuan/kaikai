@@ -36,12 +36,14 @@ const AuthProvider = ({children}) => {
     catch(error){
       console.log(error)
       setIsLoggedIn(false)
-      if(error.response || error.response.data){
-        setError(error.response.data.error)
-      }
-      else{
+      if(!error.response || !error.response.data){
         setError('an unexpected error occurred')
       }
+      else{
+        
+        setError(error.response.data.error)
+      }
+
       setTimeout(()=>{
         setError(null)
       },3000)

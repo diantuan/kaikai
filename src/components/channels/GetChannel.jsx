@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { apiURL2 } from "../../constants/constants";
 import io from 'socket.io-client'
+import './channel.css'
 
 const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
 
@@ -35,6 +36,9 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
       }
       catch(error){
         setPending(false)
+        if(!error.response.data){
+          return setError("an unexpected error occur")
+        }
         setError(error.response.data.error)
         console.log(error)
 
@@ -86,6 +90,9 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
 
     }
     catch(error){
+      if(!error.response.date){
+        return setError("an unexpected error occurred")
+      }
       setError(error.response.data.error)
       console.log(error)
     }
@@ -93,17 +100,15 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
 
 
   return ( <div>
-    channels
     {pending && <div>Getting channels...</div>}
     {error && <div>{error}</div>}
     {channels && channels.map(channel=>(
-      <div key = {channel._id}>
+      <div key = {channel._id} className={channel._id === selectedChannel ? "channelContainer active": "channelContainer"}>
         <div
         onClick = {()=>selectChannel(channel._id)}>{channel.channelName}</div>
         <div>{channel.members.map((member,ik)=>(
-          <span key={ik + "b"}>{member.memberId.email}</span>
+          <span key={ik + "b"} style={{fontSize:".7em", color:"var(--blued)", marginInline:"2px"}}>{member.memberId.email}</span>
         ))}</div>
-        
         
           <select onChange={e=>setFriendToAdd(e.target.value)}>
             <option value ="null">select friend</option>

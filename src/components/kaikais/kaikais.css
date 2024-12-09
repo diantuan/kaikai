@@ -1,0 +1,61 @@
+.kaikai-form{
+  position:relative;
+  text-align: center;
+  padding-inline:17px;
+  height:70%;
+  width:100%;
+}
+
+.kaikai-form textarea{
+  width:100%;
+  border-radius: 10px;
+  height:100%;
+  width:100%;
+  background-color: var(--greyed);
+  padding:3%;
+  color:mistyrose;
+}
+
+.kaikai-form button{
+  position:absolute;
+  bottom:7px;
+  right:20px;
+  width:50px;
+  height:20px;
+  border-radius: 5px;
+  background-color: var(--dark-pink2);
+  color:mistyrose;
+  border:none;
+  box-shadow: inset -1px 1px var(--ligt-pink)
+}
+
+.emojis{
+  height:150px;
+  background-color: var(--black);
+  padding:10px;
+  border:1px solid var(--dark-pink2);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: auto;
+  position:absolute;
+  bottom:10px;
+  right:100px;
+  width:70%;
+}
+
+.hidden{
+  display: none;
+}
+
+.kaikai-form i{
+  position:absolute;
+  bottom: 10px;
+  right:80px;
+  z-index: 1;
+  color:var(--blued)
+}
+.kaikai-form i:hover{
+  color: mistyrose;
+}

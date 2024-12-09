@@ -63,3 +63,11 @@
   transform: translate(-50%);
   color:var(--blued)
 }
+
+.sign-up-logo{
+  position:fixed;
+  left:50%;
+  top:60%;
+  transform: translate(-50%);
+
+}

@@ -6,7 +6,7 @@ h1{
   position:fixed;
   top:50%;
   left:50%;
-  transform: translate(-70%, -300%);
+  transform: translate(-70%, -237px);
   font-family: moderna;
   z-index: 1;
 }
@@ -92,46 +92,9 @@ h1{
 
 .login-logo{
   position:fixed;
-  left:55%;
-  top:15%;
-  width:100px;
-  z-index: 0;
-  animation-name: logomove;
-  animation-duration: 5s;
-  animation-iteration-count: infinite;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in;
+  left:50%;
+  top:50%;
+  transform: translate(37%, -245px);
+  z-index: 3;
 }
 
-@keyframes logomove {
-
-  0%{
-    transform: rotate(0);
-  }
-  25%{
-    transform: rotate(0);
-  }
-  37%{
-    transform: rotate(-20deg);
-  }
-  50%{
-    transform: rotate(0);
-  }
-  80%{
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
-  86%{
-    -webkit-transform: scaleX(1);
-    transform: scaleX(-1);
-  }
-  95%{
-    -webkit-transform: scaleX(1);
-    transform: scaleX(-1);
-  }
-  100%{
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
-  
-}

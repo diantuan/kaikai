@@ -1,11 +1,39 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/Auth";
+import KaikaiList from "../kaikai-list/KaikaiList";
+import './protected.css'
 
 
 const Protected = () => {
-  const {isLoggedIn} = useAuth();
+  const {isLoggedIn, logout} = useAuth();
   
-  return isLoggedIn ? <Outlet/> : <Navigate to="/login"></Navigate>
+  const navigate = useNavigate()
+
+  if(isLoggedIn){
+    
+
+    const handleLogout = ()=>{
+      logout()
+      navigate('/')
+    }
+
+    return ( <div className="protected">
+      <KaikaiList/>
+      
+      <button
+      onClick = {handleLogout}
+      type="button"
+      className="logout-btn">
+        Logout
+      </button>
+      
+    </div> );
+    }
+    else{
+      return <Navigate to="/login"></Navigate>
+    }
+  
+  
 }
  
 export default Protected;
