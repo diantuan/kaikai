@@ -1,0 +1,28 @@
+.addfriend-form{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.addfriend-form input{
+  border-radius: 5px;
+  height:22px;
+  background-color: var(--greyed);
+  color:var(--blued)
+}
+
+.addfriend-form i{
+  border: 1px solid var(--dark-pink);
+  border-radius: 5px;
+  background-color: var(--dark-pink);
+  width: 25px;
+  text-align: center;
+  margin-inline:5px;
+  height:22px;
+  font-size: .8em;
+  color:var(--black)
+}
+
+.addfriend-form i:hover{
+  background-color: var(--black);
+  color:mistyrose;
+}

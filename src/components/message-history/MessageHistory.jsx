@@ -4,13 +4,17 @@ import { apiURL, apiURL2 } from "../../constants/constants";
 import io  from "socket.io-client";
 import './messagehistory.css'
 import { useAuth } from "../auth/Auth";
+import Logo from "../logo/logo";
+import logo from '../../assets/pppixelate.png'
 
-const MessageHistory = ({selectedFriend, messageRefresh, selectedChannel}) => {
+const MessageHistory = ({selectedFriend, selectedChannel, kaikaiList}) => {
 
   const [messages, setMessages] = useState(null)
   const [pending, setPending] = useState(false)
   const [error, setError] = useState(null)
   const {uid} = useAuth()
+  const [friendPic, setFriendPic] = useState(null)
+  const [name, setName] = useState(null)
 
   useEffect(()=>{
 
@@ -21,6 +25,19 @@ const MessageHistory = ({selectedFriend, messageRefresh, selectedChannel}) => {
     const retrieveMessages = async()=>{
 
       setPending(true)
+      
+      if(selectedFriend){
+        const found = kaikaiList.find(friend=>friend.friendId._id === selectedFriend)
+        setFriendPic(found.friendId.picture)
+        setName(found.friendId.nickname || found.friendId.email)
+        
+      }
+      else{
+
+        setFriendPic(null)
+        setName("channel")
+      }
+      
 
       if(!selectedFriend && !selectedChannel){
         setPending(false)
@@ -35,6 +52,9 @@ const MessageHistory = ({selectedFriend, messageRefresh, selectedChannel}) => {
       }
       catch(error){
         setPending(false)
+        if(!error.response.data){
+          return setError("an unexpected error occurred")
+        }
         setError(error.response.data.error)
         console.log(error)
       }
@@ -44,31 +64,41 @@ const MessageHistory = ({selectedFriend, messageRefresh, selectedChannel}) => {
     
     retrieveMessages();
 
-    socket.on('refresh', ()=>{
-      console.log('heard refresh')
-      retrieveMessages()
+    socket.on('refresh', (message)=>{
+      console.log(message)
+      console.log(uid)
+      setMessages(prev=>[...prev, message])
     })
 
     return ()=>socket.close();
   }
 
-  ,[selectedFriend, selectedChannel, messageRefresh])
+  ,[selectedFriend, selectedChannel])
 
 
 
   return ( <div className="messages">
-    Messages:
-    {pending && <div>getting kaikais...</div>}
-    {error && <div>{error}</div>}
-    {messages && messages.map(message=>(
-      <div key={message._id}> 
-        <span>{message.sender.email}</span>
-        <div className={message.sender._id.toString() === uid  ? "right-align" : "left-align"}
-        >{message.body}</div>
-
-
-      </div>  
+    <div className="kaikais-header">
+      <div>
+        {friendPic && <img src={friendPic}></img>}
+        {!friendPic && <img src={logo}></img>}
+        {name && <span style={{fontSize:'.7em', color: "var(--blued)"}}>{name}</span>}
+      </div>
+      
+      <h2 className="kaikais-title">kaikais</h2>
+      <Logo/>
+    </div>
+    <div className="kaikais-body">
+      {pending && <div>getting kaikais...</div>}
+      {error && <div>{error}</div>}
+      {messages && messages.map(message=>(
+        <div key={message._id}  className={message.sender._id === uid ? "right-align" : "left-align"}> 
+          {selectedChannel && <div style={{fontSize: ".7em", color:"var(--blued)"}}>{message.sender.nickname || message.sender.email}</div>}
+          <span className="message-body">{message.body}</span>
+    
+        </div>
     ))}
+    </div>
   </div> );
 }
  

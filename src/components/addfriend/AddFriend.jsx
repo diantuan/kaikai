@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { apiURL, apiURL2 } from "../../constants/constants";
+import './addfriend.css'
 
 
-const AddFriend = ({refreshList}) => {
+const AddFriend = () => {
 
   const[friendEmail, setFriendEmail] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -23,7 +24,6 @@ const AddFriend = ({refreshList}) => {
 
       
       const response = await axios.post(`${apiURL2}/api/v1/addfriend`, {friendEmail}, {headers:{"Authorization": `Bearer ${token}`}})
-      refreshList((prev)=>!prev);
       console.log(response.data)
       setIsPending(false);
       setError(null);
@@ -36,23 +36,21 @@ const AddFriend = ({refreshList}) => {
     
   }
 
-return ( <div>
-    <form onSubmit={handleSubmit}>
+return ( 
+    <form className="addfriend-form" onSubmit={e=>e.preventDefault()}>
 
       <input
       onChange ={e=>setFriendEmail(e.target.value)}
-      type="email" required></input>
+      type="email" placeholder="add email" required></input>
 
-      <button
-      type="submit">
-        Add Friend
-      </button>
+      <i className="fa-solid fa-plus"
+      onClick={handleSubmit}></i>
       
       {isPending && <div>finding...</div>}
       {error && <div>{error}</div>}
 
     </form>
-  </div> );
+  );
 }
  
 export default AddFriend;

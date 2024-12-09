@@ -1,0 +1,83 @@
+.channelContainer{
+  background-color: var(--greyed);
+  box-shadow: 1px 1px 1px 1px var(--dark-pink);
+  border-radius: 10px;
+  color:mistyrose;
+  border-top:1px solid var(--dark-pink);
+  height:40px;
+  display:flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  padding-inline:10px;
+  margin-top:7px;
+  width:98%;
+}
+
+.channelContainer:hover{
+  background-color: var(--dark-pink);
+}
+
+.channelContainer.active{
+  background-color: var(--black);
+  box-shadow: inset -1px 1px mistyrose;
+  height:min-content;
+}
+
+.channelContainer.active span{
+  display: inline-block;
+}
+
+.channelContainer select{
+  background-color: var(--black);
+  color:mistyrose
+}
+
+.channelContainer button{
+  background-color: var(--black);
+  color:mistyrose
+}
+
+.channelContainer button:hover{
+  background-color: var(--blued);
+}
+
+.add-channel-form{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+
+.add-channel-form form{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.add-channel-form input{
+ border-radius: 5px;
+ background-color: var(--black);
+ height:25px;
+ color:mistyrose;
+ width: 60%;
+ height:35px;
+}
+
+.add-channel-form select{
+  border-radius: 5px;
+  background-color: var(--black);
+  height: 35px;
+  color:mistyrose;
+  width:60%;
+}
+
+.add-channel-form button{
+  background-color: var(--dark-pink2);
+  border-radius: 5px;
+  box-shadow: inset -1px 1px mistyrose;
+  color:mistyrose;
+  width:30%;
+  height:35px;
+}

@@ -1,0 +1,43 @@
+.logod{
+ 
+  width:100px;
+  
+  animation-name: logomove;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes logomove {
+
+  0%{
+    transform: rotate(0);
+  }
+  25%{
+    transform: rotate(0);
+  }
+  37%{
+    transform: rotate(-20deg);
+  }
+  50%{
+    transform: rotate(0);
+  }
+  80%{
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  86%{
+    -webkit-transform: scaleX(1);
+    transform: scaleX(-1);
+  }
+  95%{
+    -webkit-transform: scaleX(1);
+    transform: scaleX(-1);
+  }
+  100%{
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  
+}

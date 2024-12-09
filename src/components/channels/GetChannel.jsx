@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { apiURL2 } from "../../constants/constants";
 import io from 'socket.io-client'
+import './channel.css'
 
 const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
 
@@ -17,7 +18,7 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
 
     const token = JSON.parse(localStorage.getItem('token'))
     
-    const socket = io(`${apiURL2}`)
+    const socks = io(`${apiURL2}`)
 
     const retrieveChannels = async()=>{
       setPending(true)
@@ -35,6 +36,9 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
       }
       catch(error){
         setPending(false)
+        if(!error.response.data){
+          return setError("an unexpected error occur")
+        }
         setError(error.response.data.error)
         console.log(error)
 
@@ -43,12 +47,12 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
 
     retrieveChannels();
 
-    socket.on('refreshChannel', ()=>{
+    socks.on('refreshChannel', ()=>{
       retrieveChannels()
     })
 
       
-    return ()=>socket.close()
+    return ()=>socks.close()
   }
   ,[kaikaiList])
 
@@ -80,35 +84,36 @@ const GetChannel = ({selectChannel, selectedChannel, kaikaiList}) => {
         return setError(response.data.error)
       }
 
-      setRemainingMembers(remainingMembers.filter(member=>member.friendId._id !== friendToAdd.friendId._id))
+      setRemainingMembers(remainingMembers.filter(member=>member.friendId._id !== friendToAdd))
 
       console.log(response.data)
 
     }
     catch(error){
+      if(!error.response.date){
+        return setError("an unexpected error occurred")
+      }
       setError(error.response.data.error)
-      console.log(error.response)
+      console.log(error)
     }
   }
 
 
   return ( <div>
-    channels
     {pending && <div>Getting channels...</div>}
     {error && <div>{error}</div>}
     {channels && channels.map(channel=>(
-      <div key = {channel._id}>
+      <div key = {channel._id} className={channel._id === selectedChannel ? "channelContainer active": "channelContainer"}>
         <div
         onClick = {()=>selectChannel(channel._id)}>{channel.channelName}</div>
-        <div>{channel.members.map(member=>(
-          <span key={member.memberId._id}>{member.memberId.email}</span>
+        <div>{channel.members.map((member,ik)=>(
+          <span key={ik + "b"} style={{fontSize:".7em", color:"var(--blued)", marginInline:"2px"}}>{member.memberId.email}</span>
         ))}</div>
-        
         
           <select onChange={e=>setFriendToAdd(e.target.value)}>
             <option value ="null">select friend</option>
-            {remainingMembers && remainingMembers.map(friend=>(
-              <option key={friend.friendId._id}
+            {remainingMembers && remainingMembers.map((friend, i)=>(
+              <option key={i}
               value={friend.friendId._id}>
                 {friend.friendId.email}
               </option>
