@@ -9,6 +9,8 @@ import io from "socket.io-client";
 import AddChannel from "../channels/AddChannel";
 import GetChannel from "../channels/GetChannel";
 import logo from '../../assets/pppixelate.png'
+import DadJokes from "../dadjokes/DadJokes";
+import Facts from "../facts/Facts";
 
 
 const KaikaiList = () => {
@@ -120,6 +122,12 @@ const KaikaiList = () => {
       </div>
       <div className="grid5">
         <Kaikais setMessageRefresh={setMessageRefresh} selectedFriend={selectedFriend}  selectedChannel={selectedChannel}/>
+      </div>
+      <div className="grid6">
+        <DadJokes />
+      </div>
+      <div className="grid7">
+        <Facts />
       </div>
     </div>
      
