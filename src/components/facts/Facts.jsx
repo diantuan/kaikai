@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Facts = () => {
@@ -8,10 +7,10 @@ const Facts = () => {
 
     const getFact = async()=>{
       try{
-        const response = await axios.get("https://api.api-ninjas.com/v1/facts", {headers:{"X-Api-Key" : "Y/Y/msoiB794NMea6hVWDg==RvRZd70tPC9HwmaA"}})
+        const response = await fetch("https://api.api-ninjas.com/v1/facts", {method:"GET", headers:{"X-Api-Key" : "Y/Y/msoiB794NMea6hVWDg==RvRZd70tPC9HwmaA"}})
 
-        console.log(response)
-        setFact(response.data)
+        const responseParsed = await response.json()
+        setFact(responseParsed.data)
       }
       catch(error){
         console.log(error)

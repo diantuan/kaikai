@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 const DadJokes = () => {
@@ -9,8 +8,9 @@ const DadJokes = () => {
 
     const getJokes = async()=>{
       try{
-        const response = await axios.get("https://api.api-ninjas.com/v1/dadjokes", {headers:{"X-Api-Key" : "Y/Y/msoiB794NMea6hVWDg==RvRZd70tPC9HwmaA"}})
-        setDadJoke(response.data)
+        const response = await fetch("https://api.api-ninjas.com/v1/dadjokes", {method:"GET", headers:{"X-Api-Key" : "Y/Y/msoiB794NMea6hVWDg==RvRZd70tPC9HwmaA"}})
+        const responseParsed = await response.json()
+        setDadJoke(responseParsed.data)
         
       }
       catch(error){
